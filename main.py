@@ -1,4 +1,5 @@
 import telebot
+import telebot.types as types
 import os
 from flask import Flask, request
 import logging
@@ -6,18 +7,29 @@ import logging
 token = '5178608519:AAGqDLaQzbTEuyaGC5R9-LoZ45Y_8DxQ3Qg'
 bot = telebot.TeleBot(token)
 
-@bot.message_handler(content_types='text')
+@bot.message_handler(commands='start')
 def start_message(message):
+    bot.send_message(message.chat.id, 'Привет' + message.chat.user)
+
+@bot.message_handler(commands=['button'])
+def button_message(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton("Кнопка")
+    markup.add(item1)
+
+@bot.message_handler(content_types='text')
+def text_message(message):
     if message.text == 'ok':
         bot.send_message(message.chat.id, 'Отправили ОК')
     else:
         bot.send_message(message.chat.id, 'Что-то другое отправили')
 
-
-
 @bot.message_handler(content_types='photo')
 def download_photo(message):
     bot.send_message(message.chat.id, 'Принято')
+
+
+
 
 
 
