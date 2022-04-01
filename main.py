@@ -9,20 +9,38 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands='start')
 def start_message(message):
-    bot.send_message(message.chat.id, 'Привет' + message.chat.user)
+    bot.send_message(message.chat.id, 'Привет ' + message.from_user.first_name)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton("Начать работу")
+    markup.add(item1)
 
 @bot.message_handler(commands=['button'])
 def button_message(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("Кнопка")
     markup.add(item1)
+    bot.send_message(message.chat.id,'' , reply_markup=markup)
+
+
+@bot.chosen_inline_handler(func=lambda chosen_inline_result: True)
+def test_chosen(chosen_inline_result):
+    pass
+    # Process all chosen_inline_result.
+
+@bot.inline_handler(lambda query: query.query == 'text')
+def query_text(inline_query):
+    try:
+        r = types.InlineQueryResultArticle('1', 'Result', types.InputTextMessageContent('Result message.'))
+        r2 = types.InlineQueryResultArticle('2', 'Result2', types.InputTextMessageContent('Result message2.'))
+        bot.answer_inline_query(inline_query.id, [r, r2])
+    except Exception as e:
+        print(e)
+
 
 @bot.message_handler(content_types='text')
 def text_message(message):
-    if message.text == 'ok':
-        bot.send_message(message.chat.id, 'Отправили ОК')
-    else:
-        bot.send_message(message.chat.id, 'Что-то другое отправили')
+    pass
+
 
 @bot.message_handler(content_types='photo')
 def download_photo(message):
