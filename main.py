@@ -15,6 +15,11 @@ def start_message(message):
 
 
 
+@bot.message_handler(content_types='photo')
+def download_photo(message):
+    bot.send_message(message.chat.id, 'Принято')
+
+
 
 # Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
 if "HEROKU" in list(os.environ.keys()):
