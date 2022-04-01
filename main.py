@@ -8,11 +8,12 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(content_types='text')
 def start_message(message):
-    # if message.text == 'ok':
-    try:
-        bot.send_message(message.chat.id, message.text)
-    except Exception as _ex:
-        bot.send_message(message.chat.id, _ex)
+    if message.text == 'ok':
+        bot.send_message(message.chat.id, 'Отправили ОК')
+    else:
+        bot.send_message(message.chat.id, 'Что-то другое отправили')
+
+
 
 
 # Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
