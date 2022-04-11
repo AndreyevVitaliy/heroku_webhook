@@ -2,25 +2,32 @@ import pprint
 
 import telebot
 import telebot.types as types
-import os
-from flask import Flask, request
-import logging
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+# import os
+# from flask import Flask, request
+# import logging
+# from pydrive.auth import GoogleAuth
+# from pydrive.drive import GoogleDrive
+#
+# from google.oauth2 import service_account
+# from googleapiclient.http import MediaIoBaseDownload,MediaFileUpload
+# from googleapiclient.discovery import build
 
-from google.oauth2 import service_account
-from googleapiclient.http import MediaIoBaseDownload,MediaFileUpload
-from googleapiclient.discovery import build
-
-token = '5178608519:AAGqDLaQzbTEuyaGC5R9-LoZ45Y_8DxQ3Qg'
+token = '5178608519:AAFJdqk18jIXJp7TOe7gHmnDu74Fc8AmDbY'
 bot = telebot.TeleBot(token)
 
-# @bot.message_handler(commands='start')
-# def start_message(message):
-#     bot.send_message(message.chat.id, 'Привет ' + message.from_user.first_name)
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     item1 = types.KeyboardButton("Начать работу")
-#     markup.add(item1)
+@bot.message_handler(commands='start')
+def start_message(message):
+    bot.send_message(message.chat.id, 'Привет ' + message.from_user.first_name + ' Как дела?')
+    # markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    # item1 = types.KeyboardButton("Начать работу")
+    # markup.add(item1)
+
+@bot.message_handler(content_types='text')
+def text_message(message):
+    bot.send_message(message.chat.id, 'Функция пока не работает')
+    # markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    # item1 = types.KeyboardButton("Начать работу")
+    # markup.add(item1)
 
 # @bot.message_handler(commands=['button'])
 # def button_message(message):
@@ -45,15 +52,15 @@ bot = telebot.TeleBot(token)
 #         print(e)
 
 
-@bot.message_handler(content_types='text')
-def text_message(message):
-    bot.send_message(message.chat_id, "Да")
+# @bot.message_handler(content_types='text')
+# def text_message(message):
+#     bot.send_message(message.chat_id, "Да")
 
 
-@bot.message_handler(content_types='photo')
-def download_photo(message):
-   bot.send_message(message.chat_id, "Пока не работает функция")
-
+# @bot.message_handler(content_types='photo')
+# def download_photo(message):
+#     bot.send_message(message.chat_id, "Пока не работает функция")
+#
 
 
 # Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
@@ -77,5 +84,5 @@ def download_photo(message):
     # Удаляем вебхук на всякий случай, и запускаем с обычным поллингом.
 
 
-bot.remove_webhook()
+# bot.remove_webhook()
 bot.polling(none_stop=True)
