@@ -15,6 +15,8 @@ import logging
 token = '5178608519:AAFJdqk18jIXJp7TOe7gHmnDu74Fc8AmDbY'
 bot = telebot.TeleBot(token)
 
+
+
 @bot.message_handler(commands='start')
 def start_message(message):
     bot.send_message(message.chat.id, 'Привет ' + message.from_user.first_name + ' Как дела?')
@@ -77,7 +79,7 @@ if "HEROKU" in list(os.environ.keys()):
     @server.route("/")
     def webhook():
         bot.remove_webhook()
-        bot.set_webhook(url="https://andv-webhook.herokuapp.com") # этот url нужно заменить на url вашего Хероку приложения
+        bot.set_webhook(url="https://andv-webhook.herokuapp.com/") # этот url нужно заменить на url вашего Хероку приложения
         return "?", 200
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
 else:
