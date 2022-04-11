@@ -2,9 +2,9 @@ import pprint
 
 import telebot
 import telebot.types as types
-# import os
-# from flask import Flask, request
-# import logging
+import os
+from flask import Flask, request
+import logging
 # from pydrive.auth import GoogleAuth
 # from pydrive.drive import GoogleDrive
 #
@@ -63,7 +63,7 @@ def text_message(message):
 #
 
 
-Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
+# Проверим, есть ли переменная окружения Хероку (как ее добавить смотрите ниже)
 if "HEROKU" in list(os.environ.keys()):
     logger = telebot.logger
     telebot.logger.setLevel(logging.INFO)
